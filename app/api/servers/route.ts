@@ -3,7 +3,6 @@ import { NextResponse } from "next/server";
 
 import { currentProfile } from "@/lib/current-profile";
 import { db } from "@/lib/db";
-import { v4 } from "uuid";
 import { MemberRole } from '@prisma/client';
 
 export async function POST(req: Request) {
