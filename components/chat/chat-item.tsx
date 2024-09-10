@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal-store";
+import { EmojiPicker } from "../emoji-picker";
 
 interface ChatItemProps {
     id: string;
@@ -73,10 +74,18 @@ export const ChatItem = ({
         router.push(`/servers/${params?.serverId}/conversations/${member.id}`)
     }
 
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            content: content
+        }
+    })
+
     useEffect(() => {
         const handlekeyDown = (event: any) => {
             if(event.key === "Escape" || event.keyCode === 27) {
                 setIsEditing(false);
+                form.reset();
             }
         }
 
@@ -84,13 +93,6 @@ export const ChatItem = ({
 
         return () => window.removeEventListener("keyDown", handlekeyDown);
     }, []);
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            content: content
-        }
-    })
 
     const isLoading = form.formState.isSubmitting;
 
@@ -114,7 +116,7 @@ export const ChatItem = ({
         form.reset({
             content: content,
         })
-    }, [content]);
+    }, [content, form]);
 
     const fileType = fileUrl?.split(".").pop();
 
@@ -205,22 +207,29 @@ export const ChatItem = ({
                                     render={({ field }) => (
                                         <FormItem className="flex-1">
                                             <FormControl className="relative w-full">
-                                                <Input
-                                                    disabled={isLoading}
-                                                    className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-                                                    placeholder="Edited message"
-                                                    {...field}
-                                                />
+                                                <div>
+                                                    <Input
+                                                        disabled={isLoading}
+                                                        className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
+                                                        placeholder="Edited message"
+                                                        {...field}
+                                                    />
+                                                    <div className="absolute top-2 right-4">
+                                                        <EmojiPicker 
+                                                            onChange={(emoji: string) => field.onChange(`${field.value} ${emoji}`)}
+                                                        />
+                                                    </div>
+                                                </div>
                                             </FormControl>
                                         </FormItem>
                                     )}
                                 />
-                                <Button disabled={isLoading} size="sm" variant="primary">
+                                {/* <Button disabled={isLoading} size="sm" variant="primary">
                                     Save
-                                </Button>
+                                </Button> */}
                             </form>
                             <span className="text-[10px] mt-1 text-zinc-400">
-                                Press escape to cancel, enter to save
+                                Press escape to {<button className="text-indigo-500 hover:underline" onClick={() => setIsEditing(false)}>cancel</button>}, enter to <button className="text-indigo-500 hover:underline" disabled={isLoading} onClick={form.handleSubmit(onSubmit)}>save</button>
                             </span>
                         </Form>
                     )}
