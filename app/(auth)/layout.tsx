@@ -9,7 +9,7 @@ const font = Poppins({
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-full flex">
+    <div className="h-full flex bg-[url('/assets/background.jpg')] bg-cover">
       <div className="absolute flex flex-row top-10 left-10 gap-x-2 items-center">
         <Image src={require("@/public/assets/logo.png")} alt="logo" width={50} height={50} />
         <span className={cn(
