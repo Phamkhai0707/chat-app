@@ -4,6 +4,8 @@ import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { useParams, useRouter } from "next/navigation";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 interface ServerSearchProps {
     data: {
@@ -23,6 +25,7 @@ export const ServerSearch = ({
     const [open, setOpen] = useState(false);
     const router = useRouter();
     const params = useParams();
+    const { t } = useTranslation();
 
     useEffect(() => {
         const down = (e: KeyboardEvent) => {
@@ -58,7 +61,7 @@ export const ServerSearch = ({
                 <p 
                     className="font-semibold text-sm text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-600 dark:group-hover:text-zinc-300 transition"
                 >
-                    Search
+                    {t("search")}
                 </p>
                 <kbd
                     className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bt-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground ml-auto"
@@ -67,16 +70,61 @@ export const ServerSearch = ({
                 </kbd>
             </button>
             <CommandDialog open={open} onOpenChange={setOpen}>
-                <CommandInput placeholder="Search all channels and members"/>
+                <CommandInput placeholder={t("commadInputSearchPlaceHolder")}/>
                 <CommandList>
                     <CommandEmpty>
-                        No Results found
+                        {t("notFound")}
                     </CommandEmpty>
                     {data.map(({ label, type, data}) => {
                         if(!data?.length) return null;
 
+                        if(label === "Text-Channels") {
+                            return (
+                                <CommandGroup key={label} heading={t("searchTextChannelsLabel")}>
+                                    {data?.map(({ id, icon, name }) => {
+                                        return (
+                                            <CommandItem key={id} onSelect={() => onClick({ id, type })}>
+                                                {icon}
+                                                <span>{name}</span>
+                                            </CommandItem>
+                                        )
+                                    })}
+                                </CommandGroup>
+                            )
+                        }
+
+                        if(label === "Audio-Channels") {
+                            return (
+                                <CommandGroup key={label} heading={t("searchAudioChannelsLabel")}>
+                                    {data?.map(({ id, icon, name }) => {
+                                        return (
+                                            <CommandItem key={id} onSelect={() => onClick({ id, type })}>
+                                                {icon}
+                                                <span>{name}</span>
+                                            </CommandItem>
+                                        )
+                                    })}
+                                </CommandGroup>
+                            )
+                        }
+
+                        if(label === "Video-Channels") {
+                            return (
+                                <CommandGroup key={label} heading={t("searchVideoChannelsLabel")}>
+                                    {data?.map(({ id, icon, name }) => {
+                                        return (
+                                            <CommandItem key={id} onSelect={() => onClick({ id, type })}>
+                                                {icon}
+                                                <span>{name}</span>
+                                            </CommandItem>
+                                        )
+                                    })}
+                                </CommandGroup>
+                            )
+                        }
+
                         return (
-                            <CommandGroup key={label} heading={label}>
+                            <CommandGroup key={label} heading={t("searchMembersLabel")}>
                                 {data?.map(({ id, icon, name }) => {
                                     return (
                                         <CommandItem key={id} onSelect={() => onClick({ id, type })}>

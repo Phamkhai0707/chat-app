@@ -20,9 +20,10 @@ import {
     FormItem,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal-store";
 import { EmojiPicker } from "../emoji-picker";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 interface ChatItemProps {
     id: string;
@@ -65,6 +66,7 @@ export const ChatItem = ({
     const { onOpen } = useModal();
     const router = useRouter();
     const params = useParams();
+    const { t } = useTranslation();
 
     const onMemberClick = () => {
         if(member.id === currentMember.id) {
@@ -92,7 +94,7 @@ export const ChatItem = ({
         window.addEventListener("keydown", handlekeyDown);
 
         return () => window.removeEventListener("keyDown", handlekeyDown);
-    }, []);
+    }, [form]);
 
     const isLoading = form.formState.isSubmitting;
 
@@ -190,7 +192,12 @@ export const ChatItem = ({
                             {content}
                             {isUpdated && !deleted && (
                                 <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
-                                    (editted)
+                                    {t("editMessage")}
+                                </span>
+                            )}
+                            {deleted && (
+                                <span>
+                                    {t("deletedMessage")}
                                 </span>
                             )}
                         </p>
@@ -211,7 +218,7 @@ export const ChatItem = ({
                                                     <Input
                                                         disabled={isLoading}
                                                         className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-                                                        placeholder="Edited message"
+                                                        placeholder={t("edittedMessagePlaceHolder")}
                                                         {...field}
                                                     />
                                                     <div className="absolute top-2 right-4">
@@ -229,7 +236,7 @@ export const ChatItem = ({
                                 </Button> */}
                             </form>
                             <span className="text-[10px] mt-1 text-zinc-400">
-                                Press escape to {<button className="text-indigo-500 hover:underline" onClick={() => setIsEditing(false)}>cancel</button>}, enter to <button className="text-indigo-500 hover:underline" disabled={isLoading} onClick={form.handleSubmit(onSubmit)}>save</button>
+                                {t("editMessageCancelGuide")}{<button className="text-indigo-500 hover:underline" onClick={() => setIsEditing(false)}>{t("editMessageCancel")}</button>}{t("editMessageSaveGuide")}<button className="text-indigo-500 hover:underline" disabled={isLoading} onClick={form.handleSubmit(onSubmit)}>{t("editMessageSave")}</button>
                             </span>
                         </Form>
                     )}

@@ -30,10 +30,13 @@ import { FileUpload } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import { useEffect } from "react";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 export const EditServerModal = () => {
     const { isOpen, onClose, type, data } = useModal();
     const router = useRouter();
+    const { t } = useTranslation();
 
     const isModalOpen = isOpen && type === "editServer";
     const { server } = data;
@@ -76,10 +79,10 @@ export const EditServerModal = () => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Customize your server
+                        {t("editServer")}
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500">
-                        Give your server a personality with a name and an image. You can always change it later
+                        {t("editServerModalContent")}
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
@@ -108,12 +111,12 @@ export const EditServerModal = () => {
                                 name="name"
                                 render={({field}) => (
                                     <FormItem>
-                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">Server name</FormLabel>
+                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">{t("editServerName")}</FormLabel>
                                         <FormControl>
                                             <Input
                                                 disabled={isLoading}
                                                 className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                                                placeholder="Enter server name"
+                                                placeholder={t("editServerNamePlaceHolder")}
                                                 {...field}
                                             />
                                         </FormControl>
@@ -124,7 +127,7 @@ export const EditServerModal = () => {
                         </div>
                         <DialogFooter className="bg-gray-100 px-6 py-4">
                             <Button variant="primary" disabled={isLoading}>
-                                Save
+                                {t("editServerButton")}
                             </Button>
                         </DialogFooter>
                     </form>

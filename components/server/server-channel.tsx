@@ -6,6 +6,8 @@ import { Edit, Hash, Lock, Mic, Trash, Video } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { ActionTooltip } from "@/components/action-tooltip";
 import { ModalType, useModal } from "@/hooks/use-modal-store";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 interface ServerChannelProps {
     channel: Channel;
@@ -27,6 +29,7 @@ export const ServerChannel = ({
     const { onOpen } = useModal();
     const params = useParams();
     const router = useRouter();
+    const { t } = useTranslation();
 
     const Icon = iconMap[channel.type];
 
@@ -56,13 +59,13 @@ export const ServerChannel = ({
             </p>
             {channel.name !== "general" && role !== MemberRole.GUEST && (
                 <div className="ml-auto flex items-center gap-x-2">
-                    <ActionTooltip label="Edit">
+                    <ActionTooltip label={t("openModalEditChannel")}>
                         <Edit
                             onClick={(e) => onAction(e, "editChannel")}
                             className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"
                         />
                     </ActionTooltip>
-                    <ActionTooltip label="Delete">
+                    <ActionTooltip label={t("openModalDeleteChannel")}>
                         <Trash
                             onClick={(e) => onAction(e, "deleteChannel")}
                             className="hidden group-hover:block w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:text-zinc-400 dark:hover:text-zinc-300 transition"

@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { NavigationItem } from "@/components/navigation/navigation-item";
 import { ModeToggle } from "@/components/mode-toggle";
 import { UserButton } from "@clerk/nextjs";
+import { LanguageToggle } from "../language-toggle";
 
 export const NavigationSidebar = async () => {
     const profile = await currentProfile();
@@ -43,6 +44,7 @@ export const NavigationSidebar = async () => {
                 ))}
             </ScrollArea>
             <div className="pb-3 mt-auto flex items-center flex-col gap-y-4">
+                <LanguageToggle/>
                 <ModeToggle/>
                 <UserButton
                     afterSignOutUrl="/sign-in"

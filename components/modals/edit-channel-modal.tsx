@@ -37,10 +37,13 @@ import {
 } from "@/components/ui/select"
 import { ChannelType } from "@prisma/client";
 import { useEffect } from "react";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 export const EditChannelModal = () => {
     const { isOpen, onClose, type, data } = useModal();
     const router = useRouter();
+    const { t } = useTranslation();
 
     const isModalOpen = isOpen && type === "editChannel";
     const { channel, server } = data;
@@ -90,7 +93,7 @@ export const EditChannelModal = () => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Edit Channel
+                        {t("editChannel")}
                     </DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
@@ -101,7 +104,7 @@ export const EditChannelModal = () => {
                                 name="name"
                                 render={({field}) => (
                                     <FormItem>
-                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">Channel name</FormLabel>
+                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">{t("editChannelName")}</FormLabel>
                                         <FormControl>
                                             <Input
                                                 disabled={isLoading}
@@ -119,7 +122,7 @@ export const EditChannelModal = () => {
                                 name="type"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Channel Type</FormLabel>
+                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">{t("editChannelType")}</FormLabel>
                                         <Select
                                             disabled={isLoading}
                                             onValueChange={field.onChange}
@@ -150,7 +153,7 @@ export const EditChannelModal = () => {
                         </div>
                         <DialogFooter className="bg-gray-100 px-6 py-4">
                             <Button variant="primary" disabled={isLoading}>
-                                Save
+                                {t("editChannelButton")}
                             </Button>
                         </DialogFooter>
                     </form>
