@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input";
 import { useModal } from "@/hooks/use-modal-store";
 import { EmojiPicker } from "@/components/emoji-picker";
 import { useRouter } from "next/navigation";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 interface ChatInputProps {
     apiUrl: string;
@@ -37,6 +39,7 @@ export const ChatInput = ({
 }: ChatInputProps) => {
     const { onOpen } = useModal();
     const router = useRouter();
+    const { t } = useTranslation();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -83,7 +86,7 @@ export const ChatInput = ({
                                     <Input
                                         disabled={isLoading}
                                         className="px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-                                        placeholder={`Message ${type === "conversation" ? name : "#" + name}`}
+                                        placeholder={`${t("chatInput")} ${type === "conversation" ? name : "#" + name}`}
                                         {...field}
                                     />
                                     <div className="absolute top-7 right-8">

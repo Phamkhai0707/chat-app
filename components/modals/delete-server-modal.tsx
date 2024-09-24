@@ -15,10 +15,13 @@ import {
 
 import { useModal } from "@/hooks/use-modal-store";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import "@/languages/i18n"
 
 export const DeleteServerModal = () => {
     const { isOpen, onClose, type, data } = useModal();
     const router = useRouter();
+    const { t } = useTranslation();
 
     const isModalOpen = isOpen && type === "deleteServer";
     const { server } = data;
@@ -46,11 +49,11 @@ export const DeleteServerModal = () => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Delete Server
+                        {t("deleteServer")}
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500">
-                        Are you sure you want to do this? <br/>
-                        <span className="text-indigo-500 font-semibold">{server?.name}</span> will be permanently deleted.
+                        {t("deleteServerModalContent")}<br/>
+                        <span className="text-indigo-500 font-semibold">{server?.name}</span>{t("deleteServerModalWarning")}
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="bg-gray-100 px-6 py-4">
@@ -60,14 +63,14 @@ export const DeleteServerModal = () => {
                             onClick={onClose}
                             variant="ghost"
                         >
-                            Cancel
+                            {t("deleteServerCancelButton")}
                         </Button>
                         <Button
                             disabled={isLoading}
                             onClick={onClick}
                             variant="primary"
                         >
-                            Confirm
+                            {t("deleteServerConfirmButton")}
                         </Button>
                     </div>
                 </DialogFooter>

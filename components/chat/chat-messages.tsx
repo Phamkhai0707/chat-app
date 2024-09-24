@@ -9,6 +9,9 @@ import { useChatSocket } from "@/hooks/use-chat-socket";
 import { Loader2, ServerCrash } from "lucide-react";
 import { ChatItem } from "./chat-item";
 import { useChatScroll } from "@/hooks/use-chat-scroll";
+import { Skeleton } from "@/components/ui/skeleton";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -44,6 +47,7 @@ export const ChatMessages = ({
     const queryKey = `chat:${chatId}`;
     const addKey = `chat:${chatId}:messages`;
     const updateKey = `chat:${chatId}:messages:update`;
+    const { t } = useTranslation();
 
     const chatRef = useRef<ElementRef<"div">>(null);
     const bottomRef = useRef<ElementRef<"div">>(null);
@@ -74,9 +78,16 @@ export const ChatMessages = ({
             <div className="flex flex-col flex-1 justify-center items-center">
                 <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4"/>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                    Loading messages...
+                    {t("loadingMessages")}...
                 </p>
             </div>
+            // <div className="flex flex-1 items-center space-x-4">
+            //     <Skeleton className="h-12 w-12 rounded-full bg-zinc-500" />
+            //     <div className="space-y-2">
+            //         <Skeleton className="h-4 w-[250px] bg-zinc-500" />
+            //         <Skeleton className="h-4 w-[200px] bg-zinc-500" />
+            //     </div>
+            // </div>
         )
     }
 
@@ -85,7 +96,7 @@ export const ChatMessages = ({
             <div className="flex flex-col flex-1 justify-center items-center">
                 <ServerCrash className="h-7 w-7 text-zinc-500 my-4"/>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                    Something went wrong!
+                    {t("loadingError")}!
                 </p>
             </div>
         )
@@ -112,7 +123,7 @@ export const ChatMessages = ({
                             onClick={() => fetchNextPage()}
                             className="text-zinc-500 hover:text-zinc-400 text-xs my-4 dark:hover:text-zinc-300 transition"
                         >
-                            Load previous messages
+                            {t("loadPreviousMessages")}
                         </button>
                     )}
                 </div>

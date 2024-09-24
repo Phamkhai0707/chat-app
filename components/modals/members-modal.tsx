@@ -19,7 +19,6 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
-    DropdownMenuLabel,
     DropdownMenuPortal,
     DropdownMenuSeparator,
     DropdownMenuSub,
@@ -33,6 +32,8 @@ import { useModal } from "@/hooks/use-modal-store";
 import { ServerWithMembersWithProfiles } from "@/type";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { UserAvatar } from "@/components/user-avatar";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 const roleIconMap = {
     "GUEST": null,
@@ -42,6 +43,7 @@ const roleIconMap = {
 
 export const MembersModal = () => {
     const router = useRouter();
+    const { t } = useTranslation();
     const { onOpen, isOpen, onClose, type, data } = useModal();
     const [loadingId, setLoadingId] = useState("");
 
@@ -95,12 +97,12 @@ export const MembersModal = () => {
             <DialogContent className="bg-white text-black overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Manage Members
+                        {t("manageMembers")}
                     </DialogTitle>
                     <DialogDescription
                         className="text-center text-zinc-500"
                     >
-                        {server?.members?.length} Members
+                        {server?.members?.length}{t("amoutMembers")}
                     </DialogDescription>
                 </DialogHeader>
                 <ScrollArea className="mt-8 max-h-[420px] pr-6">
@@ -130,7 +132,7 @@ export const MembersModal = () => {
                                                     <ShieldQuestion
                                                         className="w-4 h-4 mr-2"
                                                     />
-                                                    <span>Role</span>
+                                                    <span>{t("role")}</span>
                                                 </DropdownMenuSubTrigger>
                                                 <DropdownMenuPortal>
                                                     <DropdownMenuSubContent>
@@ -138,7 +140,7 @@ export const MembersModal = () => {
                                                             onClick={() => onRoleChange(member.id, "GUEST")}
                                                         >
                                                             <Shield className="h-4 w-4 mr-2" />
-                                                            Guest
+                                                            {t("guest")}
                                                             {member.role === "GUEST" && (
                                                                 <Check
                                                                     className="h-4 2-4 ml-auto"
@@ -149,7 +151,7 @@ export const MembersModal = () => {
                                                             onClick={() => onRoleChange(member.id, "MODERATOR")}
                                                         >
                                                             <ShieldCheck className="h-4 w-4 mr-2" />
-                                                            Moderator
+                                                            {t("moderator")}
                                                             {member.role === "MODERATOR" && (
                                                                 <Check
                                                                     className="h-4 2-4 ml-auto"
@@ -164,7 +166,7 @@ export const MembersModal = () => {
                                                 onClick={() => onKick(member.id)}
                                             >
                                                 <Gavel className="h-4 w-4 mr-2" />
-                                                Kick
+                                                {t("kick")}
                                             </DropdownMenuItem>
                                         </DropdownMenuContent>
                                     </DropdownMenu>
