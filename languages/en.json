@@ -108,5 +108,8 @@
     "searchTextChannelsLabel": "Text Channels",
     "searchAudioChannelsLabel": "Voice Channels",
     "searchVideoChannelsLabel": "Video Channels",
-    "searchMembersLabel": "Members"
+    "searchMembersLabel": "Members",
+
+    "startVideoButton": "Start Video Call",
+    "endVideoButton": "End Video Call"
 }

@@ -108,5 +108,8 @@
     "searchTextChannelsLabel": "Kênh văn bản",
     "searchAudioChannelsLabel": "Kênh giọng nói",
     "searchVideoChannelsLabel": "Kênh hình ảnh",
-    "searchMembersLabel": "Thành viên"
+    "searchMembersLabel": "Thành viên",
+
+    "startVideoButton": "Bắt đầu gọi video",
+    "endVideoButton": "Kết thúc gọi video"
 }
