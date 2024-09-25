@@ -6,12 +6,13 @@ import { format } from "date-fns";
 import { ChatWelcome } from "@/components/chat/chat-welcome";
 import { useChatQuery } from "@/hooks/use-chat-query";
 import { useChatSocket } from "@/hooks/use-chat-socket";
-import { Loader2, ServerCrash } from "lucide-react";
+import { Loader2, PencilLine, ServerCrash } from "lucide-react";
 import { ChatItem } from "./chat-item";
 import { useChatScroll } from "@/hooks/use-chat-scroll";
 import { Skeleton } from "@/components/ui/skeleton";
 import "@/languages/i18n"
 import { useTranslation } from "react-i18next";
+import { ModalType, useModal } from "@/hooks/use-modal-store";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -23,6 +24,7 @@ type MessageWithMemberWithProfile = Message & {
 
 interface ChatMessagesProps {
     name: string;
+    topic: string;
     member: Member;
     chatId: string;
     apiUrl: string;
@@ -35,6 +37,7 @@ interface ChatMessagesProps {
 
 export const ChatMessages = ({
     name,
+    topic,
     member,
     chatId,
     apiUrl,
@@ -48,6 +51,7 @@ export const ChatMessages = ({
     const addKey = `chat:${chatId}:messages`;
     const updateKey = `chat:${chatId}:messages:update`;
     const { t } = useTranslation();
+    const { onOpen } = useModal();
 
     const chatRef = useRef<ElementRef<"div">>(null);
     const bottomRef = useRef<ElementRef<"div">>(null);
@@ -112,6 +116,7 @@ export const ChatMessages = ({
                 <ChatWelcome
                     type={type}
                     name={name}
+                    topic={topic}
                 />
             )}
             {hasNextPage && (
@@ -128,6 +133,18 @@ export const ChatMessages = ({
                     )}
                 </div>
             )}
+            {/* <div className="flex flex-row">
+                <button
+                    className="flex mx-4 mb-4 px-2 py-2 rounded-md gap-x-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition"
+                    onClick={() => {}}
+                >
+                    <PencilLine className="text-sky-500 flex h-5 w-5"/>
+                    <span className="text-sky-500 flex text-sm">
+                        {t("editChannel")}
+                    </span>
+                </button>
+                <div className="flex-1"/>
+            </div> */}
             <div className="flex flex-col-reverse mt-auto">
                 {data?.pages?.map((group, i) => (
                     <Fragment key={i}>
@@ -149,6 +166,7 @@ export const ChatMessages = ({
                     </Fragment>
                 ))}
             </div>
+            
             <div ref={bottomRef}/>
         </div>
     )

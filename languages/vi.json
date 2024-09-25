@@ -36,8 +36,11 @@
 
     "editChannel": "Chỉnh sửa kênh",
     "editChannelName": "Tên kênh",
+    "editChannelTopic": "Chủ đề kênh",
     "editChannelType": "Loại kênh",
     "editChannelButton": "Lưu",
+    "editChannelNamePlaceHolder": "Nhập tên kênh",
+    "editChannelTopicPlaceHolder": "Hãy cho mọi người biết cách sử dụng kênh này!",
 
     "inviteTitle": "Mời bạn bè vào ",
     "serverInviteLink": "Link mời",
@@ -72,6 +75,8 @@
     "editMessageCancel": "hủy",
     "editMessageSave": "lưu",
     "deletedMessage": "Tin nhắn này đã được xóa.",
+    "editMessageSwitch": "Chỉnh sửa",
+    "deleteMessageSwitch": "Xóa",
     
     "chatWelcome": "Chào mừng đến với ",
     "channelWelcomePart1": "Đây là sự khởi đầu của kênh #",

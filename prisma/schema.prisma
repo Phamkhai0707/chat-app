@@ -85,6 +85,7 @@ enum ChannelType {
 model Channel {
   id String @id @default(uuid())
   name String
+  topic String
   type ChannelType @default(TEXT)
 
   profileId String

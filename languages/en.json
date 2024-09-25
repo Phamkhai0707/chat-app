@@ -36,8 +36,11 @@
 
     "editChannel": "Edit Channel",
     "editChannelName": "Channel name",
+    "editChannelTopic": "Channel topic",
     "editChannelType": "Channel type",
     "editChannelButton": "Save",
+    "editChannelNamePlaceHolder": "Enter channel name",
+    "editChannelTopicPlaceHolder": "Let everyone know how to use this channel!",
 
     "inviteTitle": "Invite Friends to ",
     "serverInviteLink": "Server invite link",
@@ -72,6 +75,8 @@
     "editMessageCancel": "cancel",
     "editMessageSave": "save",
     "deletedMessage": "This message has been deleted.",
+    "editMessageSwitch": "Edit",
+    "deleteMessageSwitch": "Delete",
 
     "chatWelcome": "Welcome to ",
     "channelWelcomePart1": "This is the start of the #",

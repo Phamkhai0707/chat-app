@@ -19,5 +19,6 @@ export const formSchemaCreateChannel = z.object({
             message: "Channel name cannot be 'general'"
         }
     ),
-    type: z.nativeEnum(ChannelType)
+    type: z.nativeEnum(ChannelType),
+    topic: z.string().min(0),
 })

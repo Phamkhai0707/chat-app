@@ -53,6 +53,7 @@ const ChannelIdPage = async ({
                     <ChatMessages 
                         member={member}
                         name={channel.name}
+                        topic={channel.topic}
                         chatId={channel.id}
                         type="channel"
                         apiUrl="/api/messages"

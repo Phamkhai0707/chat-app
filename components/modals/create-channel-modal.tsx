@@ -54,6 +54,7 @@ export const CreateChannelModal = () => {
         defaultValues: {
             name: "",
             type: channelType || ChannelType.TEXT,
+            topic: "",
         }
     })
 

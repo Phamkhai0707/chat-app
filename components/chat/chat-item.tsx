@@ -192,7 +192,7 @@ export const ChatItem = ({
                             {content}
                             {isUpdated && !deleted && (
                                 <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
-                                    {t("editMessage")}
+                                    {t("edittedMessage")}
                                 </span>
                             )}
                             {deleted && (
@@ -245,14 +245,14 @@ export const ChatItem = ({
             {canDeleteMessage && (
                 <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
                     {canEditMessage &&(
-                        <ActionTooltip label="Edit">
+                        <ActionTooltip label={t("editMessageSwitch")}>
                             <Edit 
                                 onClick={() => setIsEditing(true)}
                                 className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                             />
                         </ActionTooltip>
                     )}
-                    <ActionTooltip label="Delete">
+                    <ActionTooltip label={t("deleteMessageSwitch")}>
                         <Trash 
                             onClick={() => onOpen("deleteMessage", {
                                 apiUrl: `${socketUrl}/${id}`,

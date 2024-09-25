@@ -5,11 +5,13 @@ import { useTranslation } from "react-i18next";
 interface ChatWelcomeProps {
     name: string;
     type: "channel" | "conversation";
+    topic: string;
 }
 
 export const ChatWelcome = ({
     name,
-    type
+    type,
+    topic,
 }: ChatWelcomeProps) => {
     const { t } = useTranslation();
 
@@ -25,7 +27,7 @@ export const ChatWelcome = ({
             </p>
             <p className="text-zinc-600 dark:text-zinc-400 text-sm">
                 {type === "channel"
-                    ? `${t("channelWelcomePart1")}${name}${t("channelWelcomePart2")}`
+                    ? `${t("channelWelcomePart1")}${name}${t("channelWelcomePart2")} ${topic}`
                     : `${t("conversationWelcome")}${name}`
                 }
             </p>
