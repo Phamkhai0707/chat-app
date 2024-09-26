@@ -126,5 +126,8 @@
     "unpinMessageQuestion": "bạn có chắc chắn muốn bỏ ghim tin nhắn này không?",
     "pinMessageCancelButton": "Hủy",
     "pinMessageConfirmButton": "Xác nhận",
-    "pinMessageNotice": "Tin nhắn này đã được ghim!"
+    "pinMessageNotice": "Tin nhắn này đã được ghim!",
+    "pinnedMessagesLabel": "Những tin nhắn đã ghim",
+    "emptyPinnedMessageNoticePart1": "Kênh này không có bất kì", 
+    "emptyPinnedMessageNoticePart2": "tin nhắn nào được ghim :(("
 }

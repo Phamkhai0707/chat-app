@@ -126,5 +126,8 @@
     "unpinMessageQuestion": "Are you sure you want to unpin this message?",
     "pinMessageCancelButton": "Cancel",
     "pinMessageConfirmButton": "Confirm",
-    "pinMessageNotice": "This message is pinned!"
+    "pinMessageNotice": "This message is pinned!",
+    "pinnedMessagesLabel": "Pin Messages",
+    "emptyPinnedMessageNoticePart1": "This channel don't have any", 
+    "emptyPinnedMessageNoticePart2": "pinned message... yet :(("
 }

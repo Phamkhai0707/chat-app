@@ -45,8 +45,19 @@ const ChannelIdPage = async ({
         <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
             <ChatHeader 
                 name={channel.name}
+                topic={channel.topic}
                 serverId={channel.serverId}
                 type="channel"
+                member={member}
+                chatId={channel.id}
+                apiUrl="/api/messages"
+                socketUrl="/api/socket/messages"
+                    socketQuery={{
+                    channelId: channel.id,
+                    serverId: channel.serverId,
+                }}
+                paramKey="channelId"
+                paramValue={channel.id}
             />
             {channel.type === ChannelType.TEXT && (
                 <>

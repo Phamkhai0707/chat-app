@@ -138,7 +138,7 @@ export const ChatMessages = ({
                                 deleted={message.deleted}
                                 pinned={message.pinned}
                                 timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
-                                isUpdated={message.updatedAt !== message.createdAt}
+                                isUpdated={message.edited}
                                 socketUrl={socketUrl}
                                 socketQuery={socketQuery}
                             />

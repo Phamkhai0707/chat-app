@@ -117,6 +117,7 @@ model Message {
 
   pinned Boolean @default(false)
   deleted Boolean @default(false)
+  edited Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

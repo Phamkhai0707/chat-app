@@ -100,6 +100,7 @@ export default async function handler(
                     fileUrl: null,
                     content: "",
                     deleted: true,
+                    pinned: false,
                 },
                 include: {
                     member: {
@@ -122,6 +123,7 @@ export default async function handler(
                 },
                 data: {
                     content,
+                    edited: true,
                 },
                 include: {
                     member: {
