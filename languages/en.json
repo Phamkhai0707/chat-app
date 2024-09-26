@@ -77,6 +77,8 @@
     "deletedMessage": "This message has been deleted.",
     "editMessageSwitch": "Edit",
     "deleteMessageSwitch": "Delete",
+    "pinMessageOn": "Pin",
+    "pinMessageOff": "Unpin",
 
     "chatWelcome": "Welcome to ",
     "channelWelcomePart1": "This is the start of the #",
@@ -116,5 +118,13 @@
     "searchMembersLabel": "Members",
 
     "startVideoButton": "Start Video Call",
-    "endVideoButton": "End Video Call"
+    "endVideoButton": "End Video Call",
+
+    "pinMessage": "Pin Message",
+    "pinMessageQuestion": "Are you sure you want to pin this message for everyone?",
+    "unpinMessage": "Unpin Message",
+    "unpinMessageQuestion": "Are you sure you want to unpin this message?",
+    "pinMessageCancelButton": "Cancel",
+    "pinMessageConfirmButton": "Confirm",
+    "pinMessageNotice": "This message is pinned!"
 }

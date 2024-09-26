@@ -15,7 +15,7 @@ export default async function handler(
     try {
         const profile = await currentProfilePages(req);
         const { messageId, serverId, channelId } = req.query;
-        const { content } =req.body;
+        const { content } = req.body;
 
         if(!profile) {
             return res.status(401).json({ error: "Unauthorized" });
@@ -114,7 +114,7 @@ export default async function handler(
         if(req.method === "PATCH") {
             if(!isMessageOwner) {
                 return res.status(401).json({ error: "Unauthorized"});
-            }
+            } 
 
             message = await db.message.update({
                 where: {
@@ -130,7 +130,7 @@ export default async function handler(
                         }
                     }
                 }
-            })
+            }) 
         }
 
         const updateKey = `chat:${channelId}:messages:update`;

@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Member, MemberRole, Profile } from "@prisma/client";
 import { UserAvatar } from "@/components/user-avatar";
 import { ActionTooltip } from "@/components/action-tooltip";
-import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
+import { Edit, FileIcon, Pin, PinOff, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -34,6 +34,7 @@ interface ChatItemProps {
     timestamp: string;
     fileUrl: string | null;
     deleted: boolean;
+    pinned: boolean;
     currentMember: Member;
     isUpdated: boolean;
     socketUrl: string;
@@ -57,6 +58,7 @@ export const ChatItem = ({
     timestamp,
     fileUrl,
     deleted,
+    pinned,
     currentMember,
     isUpdated,
     socketUrl,
@@ -79,7 +81,7 @@ export const ChatItem = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            content: content
+            content: content,
         }
     })
 
@@ -101,7 +103,7 @@ export const ChatItem = ({
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const url = qs.stringifyUrl({
-                url: `${socketUrl}/${id}`,
+                url: `${socketUrl}/edit/${id}`,
                 query: socketQuery,
             })
 
@@ -126,6 +128,8 @@ export const ChatItem = ({
     const isModerator = currentMember.role === MemberRole.MODERATOR;
     const isOwner = currentMember.id === member.id;
     const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
+    const canPinMessage = !deleted && !pinned && (isAdmin || isModerator);
+    const canUnpinMessage = !deleted && pinned && (isAdmin || isModerator);
     const canEditMessage = !deleted && isOwner && !fileUrl;
     const isPDF = fileType === "pdf" && fileUrl;
     const isImage = !isPDF && fileUrl;
@@ -155,6 +159,14 @@ export const ChatItem = ({
                         <span className="text-xs text-zinc-500 dark:text-zinc-400">
                             {timestamp}
                         </span>
+                        {canUnpinMessage && (
+                            <div className="flex flex-row gap-x-2 ml-2">
+                                <Pin className="text-white fill-white stroke-white rotate-45"/>
+                                <span className="text-white font-semibold">
+                                    {t("pinMessageNotice")}
+                                </span>
+                            </div>
+                        )}
                     </div>
                     {isImage && (
                         <a
@@ -231,9 +243,6 @@ export const ChatItem = ({
                                         </FormItem>
                                     )}
                                 />
-                                {/* <Button disabled={isLoading} size="sm" variant="primary">
-                                    Save
-                                </Button> */}
                             </form>
                             <span className="text-[10px] mt-1 text-zinc-400">
                                 {t("editMessageCancelGuide")}{<button className="text-indigo-500 hover:underline" onClick={() => setIsEditing(false)}>{t("editMessageCancel")}</button>}{t("editMessageSaveGuide")}<button className="text-indigo-500 hover:underline" disabled={isLoading} onClick={form.handleSubmit(onSubmit)}>{t("editMessageSave")}</button>
@@ -242,27 +251,53 @@ export const ChatItem = ({
                     )}
                 </div>
             </div>
-            {canDeleteMessage && (
-                <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
-                    {canEditMessage &&(
-                        <ActionTooltip label={t("editMessageSwitch")}>
-                            <Edit 
-                                onClick={() => setIsEditing(true)}
-                                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-                            />
-                        </ActionTooltip>
-                    )}
-                    <ActionTooltip label={t("deleteMessageSwitch")}>
-                        <Trash 
-                            onClick={() => onOpen("deleteMessage", {
-                                apiUrl: `${socketUrl}/${id}`,
+            <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+                {canPinMessage && (
+                    <ActionTooltip label={t("pinMessageOn")}>
+                        <Pin 
+                            onClick={() => onOpen("pinMessage", {
+                                onPinned: true,
+                                apiUrl: `${socketUrl}/pin/${id}`,
+                                query: socketQuery,
+                            })}
+                            className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition rotate-45"
+                        />
+                    </ActionTooltip>
+                )}
+                {canUnpinMessage && (
+                    <ActionTooltip label={t("pinMessageOff")}>
+                        <PinOff
+                            onClick={() => onOpen("pinMessage", {
+                                onPinned: false,
+                                apiUrl: `${socketUrl}/unpin/${id}`,
                                 query: socketQuery,
                             })}
                             className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                         />
                     </ActionTooltip>
-                </div>
-            )}
+                )}
+                {canDeleteMessage && (
+                    <>
+                        {canEditMessage && (
+                            <ActionTooltip label={t("editMessageSwitch")}>
+                                <Edit 
+                                    onClick={() => setIsEditing(true)}
+                                    className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+                                />
+                            </ActionTooltip>
+                        )}
+                        <ActionTooltip label={t("deleteMessageSwitch")}>
+                            <Trash 
+                                onClick={() => onOpen("deleteMessage", {
+                                    apiUrl: `${socketUrl}/edit/${id}`,
+                                    query: socketQuery,
+                                })}
+                                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+                            />
+                        </ActionTooltip>
+                    </>
+                )}
+            </div>       
         </div>
     )
 }

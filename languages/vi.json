@@ -77,6 +77,8 @@
     "deletedMessage": "Tin nhắn này đã được xóa.",
     "editMessageSwitch": "Chỉnh sửa",
     "deleteMessageSwitch": "Xóa",
+    "pinMessageOn": "Ghim",
+    "pinMessageOff": "Bỏ Ghim",
     
     "chatWelcome": "Chào mừng đến với ",
     "channelWelcomePart1": "Đây là sự khởi đầu của kênh #",
@@ -116,5 +118,13 @@
     "searchMembersLabel": "Thành viên",
 
     "startVideoButton": "Bắt đầu gọi video",
-    "endVideoButton": "Kết thúc gọi video"
+    "endVideoButton": "Kết thúc gọi video",
+
+    "pinMessage": "Ghim tin nhắn",
+    "pinMessageQuestion": "Bạn có chắc chắn rằng muốn ghim tin nhắn này cho mọi người không?",
+    "unpinMessage": "Gỡ ghim tin nhắn",
+    "unpinMessageQuestion": "bạn có chắc chắn muốn bỏ ghim tin nhắn này không?",
+    "pinMessageCancelButton": "Hủy",
+    "pinMessageConfirmButton": "Xác nhận",
+    "pinMessageNotice": "Tin nhắn này đã được ghim!"
 }

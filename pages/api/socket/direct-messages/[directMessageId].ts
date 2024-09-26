@@ -15,7 +15,7 @@ export default async function handler(
     try {
         const profile = await currentProfilePages(req);
         const { directMessageId, conversationId } = req.query;
-        const { content } =req.body;
+        const { content } = req.body;
 
         if(!profile) {
             return res.status(401).json({ error: "Unauthorized" });
