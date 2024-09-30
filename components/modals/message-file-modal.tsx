@@ -23,11 +23,11 @@ import {
 } from "@/components/ui/form"
 
 import { Button } from "@/components/ui/button";
-import { FileUpload } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
 import "@/languages/i18n"
 import { useTranslation } from "react-i18next";
+import { FileMessageUpload } from "@/components/file-message-upload";
 
 const formSchema = z.object({
     fileUrl: z.string().min(1, {
@@ -98,7 +98,7 @@ export const MessageFileModal = () => {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
-                                                <FileUpload
+                                                <FileMessageUpload
                                                     endpoint="messageFile"
                                                     value={field.value}
                                                     onChange={field.onChange}
