@@ -1,4 +1,4 @@
-import { ChatHeader } from "@/components/chat/chat-header";
+import { ChatHeaderDirect } from "@/components/chat/chat-header-direct";
 import { ChatInput } from "@/components/chat/chat-input";
 import { ChatMessages } from "@/components/chat/chat-messages";
 import { MediaRoom } from "@/components/media-room";
@@ -54,7 +54,7 @@ const MemberIdPage = async ({
 
     return (
         <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
-            <ChatHeader
+            <ChatHeaderDirect
                 imageUrl={otherMember.profile.imageUrl}
                 name={otherMember.profile.name}
                 serverId={params.serverId}
@@ -80,7 +80,8 @@ const MemberIdPage = async ({
                         socketUrl="/api/socket/direct-messages"
                         socketQuery={{
                             conversationId: conversation.id,
-                        }}
+                        }} 
+                        topic={""}                    
                     />
                     <ChatInput
                         name={otherMember.profile.name}
