@@ -5,6 +5,8 @@ import { ChannelType, MemberRole } from "@prisma/client";
 import { ActionTooltip } from "@/components/action-tooltip";
 import { Plus, Settings } from "lucide-react";
 import { useModal } from "@/hooks/use-modal-store";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 interface ServerSectionProps {
     label: string;
@@ -22,14 +24,32 @@ export const ServerSection = ({
     server,
 }: ServerSectionProps) => {
     const { onOpen } = useModal();
+    const { t } = useTranslation();
 
     return (
         <div className="flex items-center justify-between py-2">
-            <p className="text-xs uppercase font-semibold text-zinc-500 dark:text-zinc-400">
-                {label}
-            </p>
+            {label === "Text-Channels" && (
+                <p className="text-xs uppercase font-semibold text-zinc-500 dark:text-zinc-400">
+                    {t("searchTextChannelsLabel")}
+                </p>
+            )}
+            {label === "Voice-Channels" && (
+                <p className="text-xs uppercase font-semibold text-zinc-500 dark:text-zinc-400">
+                    {t("searchAudioChannelsLabel")}
+                </p>
+            )}
+            {label === "Video-Channels" && (
+                <p className="text-xs uppercase font-semibold text-zinc-500 dark:text-zinc-400">
+                    {t("searchVideoChannelsLabel")}
+                </p>
+            )}
+            {label === "Members" && (
+                <p className="text-xs uppercase font-semibold text-zinc-500 dark:text-zinc-400">
+                    {t("searchMembersLabel")}
+                </p>
+            )}
             {role !== MemberRole.GUEST && sectionType === "channels" && (
-                <ActionTooltip label="Create Channel" side="top">
+                <ActionTooltip label={t("createChannel")} side="top">
                     <button 
                         onClick={() => onOpen("createChannel", { channelType })}
                         className="text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
@@ -39,7 +59,7 @@ export const ServerSection = ({
                 </ActionTooltip>
             )}
             {role === MemberRole.ADMIN && sectionType === "members" && (
-                <ActionTooltip label="Manage members" side="top">
+                <ActionTooltip label={t("manageMembers")} side="top">
                     <button 
                         onClick={() => onOpen("members", { server })}
                         className="text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"

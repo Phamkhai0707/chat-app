@@ -37,9 +37,12 @@ import {
 } from "@/components/ui/select"
 import { ChannelType } from "@prisma/client";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import "@/languages/i18n"
 
 export const CreateChannelModal = () => {
     const { isOpen, onClose, type, data } = useModal();
+    const { t } = useTranslation();
     const router = useRouter();
     const params = useParams();
 
@@ -51,6 +54,7 @@ export const CreateChannelModal = () => {
         defaultValues: {
             name: "",
             type: channelType || ChannelType.TEXT,
+            topic: "",
         }
     })
 
@@ -92,7 +96,7 @@ export const CreateChannelModal = () => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Create Channel
+                        {t('createChannel')}
                     </DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
@@ -103,7 +107,7 @@ export const CreateChannelModal = () => {
                                 name="name"
                                 render={({field}) => (
                                     <FormItem>
-                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">Channel name</FormLabel>
+                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">{t("channelName")}</FormLabel>
                                         <FormControl>
                                             <Input
                                                 disabled={isLoading}
@@ -121,7 +125,7 @@ export const CreateChannelModal = () => {
                                 name="type"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Channel Type</FormLabel>
+                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">{t("channelType")}</FormLabel>
                                         <Select
                                             disabled={isLoading}
                                             onValueChange={field.onChange}
@@ -152,7 +156,7 @@ export const CreateChannelModal = () => {
                         </div>
                         <DialogFooter className="bg-gray-100 px-6 py-4">
                             <Button variant="primary" disabled={isLoading}>
-                                Create
+                                {t("createChannelButton")}
                             </Button>
                         </DialogFooter>
                     </form>

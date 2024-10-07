@@ -9,7 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Member, MemberRole, Profile } from "@prisma/client";
 import { UserAvatar } from "@/components/user-avatar";
 import { ActionTooltip } from "@/components/action-tooltip";
-import { Edit, FileIcon, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
+import { Edit, FileIcon, Pin, PinOff, ShieldAlert, ShieldCheck, Trash } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
@@ -20,9 +20,10 @@ import {
     FormItem,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useModal } from "@/hooks/use-modal-store";
 import { EmojiPicker } from "../emoji-picker";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 interface ChatItemProps {
     id: string;
@@ -33,6 +34,7 @@ interface ChatItemProps {
     timestamp: string;
     fileUrl: string | null;
     deleted: boolean;
+    pinned: boolean;
     currentMember: Member;
     isUpdated: boolean;
     socketUrl: string;
@@ -56,6 +58,7 @@ export const ChatItem = ({
     timestamp,
     fileUrl,
     deleted,
+    pinned,
     currentMember,
     isUpdated,
     socketUrl,
@@ -65,6 +68,7 @@ export const ChatItem = ({
     const { onOpen } = useModal();
     const router = useRouter();
     const params = useParams();
+    const { t } = useTranslation();
 
     const onMemberClick = () => {
         if(member.id === currentMember.id) {
@@ -77,7 +81,7 @@ export const ChatItem = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            content: content
+            content: content,
         }
     })
 
@@ -92,14 +96,14 @@ export const ChatItem = ({
         window.addEventListener("keydown", handlekeyDown);
 
         return () => window.removeEventListener("keyDown", handlekeyDown);
-    }, []);
+    }, [form]);
 
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             const url = qs.stringifyUrl({
-                url: `${socketUrl}/${id}`,
+                url: `${socketUrl}/edit/${id}`,
                 query: socketQuery,
             })
 
@@ -124,6 +128,8 @@ export const ChatItem = ({
     const isModerator = currentMember.role === MemberRole.MODERATOR;
     const isOwner = currentMember.id === member.id;
     const canDeleteMessage = !deleted && (isAdmin || isModerator || isOwner);
+    const canPinMessage = !deleted && !pinned && (isAdmin || isModerator);
+    const canUnpinMessage = !deleted && pinned && (isAdmin || isModerator);
     const canEditMessage = !deleted && isOwner && !fileUrl;
     const isPDF = fileType === "pdf" && fileUrl;
     const isImage = !isPDF && fileUrl;
@@ -153,6 +159,14 @@ export const ChatItem = ({
                         <span className="text-xs text-zinc-500 dark:text-zinc-400">
                             {timestamp}
                         </span>
+                        {canUnpinMessage && (
+                            <div className="flex flex-row gap-x-2 ml-2">
+                                <Pin className="fill-black dark:fill-white dark:stroke-white rotate-45"/>
+                                <span className="font-semibold dark:text-white">
+                                    {t("pinMessageNotice")}
+                                </span>
+                            </div>
+                        )}
                     </div>
                     {isImage && (
                         <a
@@ -190,7 +204,12 @@ export const ChatItem = ({
                             {content}
                             {isUpdated && !deleted && (
                                 <span className="text-[10px] mx-2 text-zinc-500 dark:text-zinc-400">
-                                    (editted)
+                                    {t("edittedMessage")}
+                                </span>
+                            )}
+                            {deleted && (
+                                <span>
+                                    {t("deletedMessage")}
                                 </span>
                             )}
                         </p>
@@ -211,7 +230,7 @@ export const ChatItem = ({
                                                     <Input
                                                         disabled={isLoading}
                                                         className="p-2 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
-                                                        placeholder="Edited message"
+                                                        placeholder={t("edittedMessagePlaceHolder")}
                                                         {...field}
                                                     />
                                                     <div className="absolute top-2 right-4">
@@ -224,38 +243,61 @@ export const ChatItem = ({
                                         </FormItem>
                                     )}
                                 />
-                                {/* <Button disabled={isLoading} size="sm" variant="primary">
-                                    Save
-                                </Button> */}
                             </form>
                             <span className="text-[10px] mt-1 text-zinc-400">
-                                Press escape to {<button className="text-indigo-500 hover:underline" onClick={() => setIsEditing(false)}>cancel</button>}, enter to <button className="text-indigo-500 hover:underline" disabled={isLoading} onClick={form.handleSubmit(onSubmit)}>save</button>
+                                {t("editMessageCancelGuide")}{<button className="text-indigo-500 hover:underline" onClick={() => setIsEditing(false)}>{t("editMessageCancel")}</button>}{t("editMessageSaveGuide")}<button className="text-indigo-500 hover:underline" disabled={isLoading} onClick={form.handleSubmit(onSubmit)}>{t("editMessageSave")}</button>
                             </span>
                         </Form>
                     )}
                 </div>
             </div>
-            {canDeleteMessage && (
-                <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
-                    {canEditMessage &&(
-                        <ActionTooltip label="Edit">
-                            <Edit 
-                                onClick={() => setIsEditing(true)}
-                                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
-                            />
-                        </ActionTooltip>
-                    )}
-                    <ActionTooltip label="Delete">
-                        <Trash 
-                            onClick={() => onOpen("deleteMessage", {
-                                apiUrl: `${socketUrl}/${id}`,
+            <div className="hidden group-hover:flex items-center gap-x-2 absolute p-1 -top-2 right-5 bg-white dark:bg-zinc-800 border rounded-sm">
+                {canPinMessage && (
+                    <ActionTooltip label={t("pinMessageOn")}>
+                        <Pin 
+                            onClick={() => onOpen("pinMessage", {
+                                onPinned: true,
+                                apiUrl: `${socketUrl}/pin/${id}`,
+                                query: socketQuery,
+                            })}
+                            className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition rotate-45"
+                        />
+                    </ActionTooltip>
+                )}
+                {canUnpinMessage && (
+                    <ActionTooltip label={t("pinMessageOff")}>
+                        <PinOff
+                            onClick={() => onOpen("pinMessage", {
+                                onPinned: false,
+                                apiUrl: `${socketUrl}/unpin/${id}`,
                                 query: socketQuery,
                             })}
                             className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
                         />
                     </ActionTooltip>
-                </div>
-            )}
+                )}
+                {canDeleteMessage && (
+                    <>
+                        {canEditMessage && (
+                            <ActionTooltip label={t("editMessageSwitch")}>
+                                <Edit 
+                                    onClick={() => setIsEditing(true)}
+                                    className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+                                />
+                            </ActionTooltip>
+                        )}
+                        <ActionTooltip label={t("deleteMessageSwitch")}>
+                            <Trash 
+                                onClick={() => onOpen("deleteMessage", {
+                                    apiUrl: `${socketUrl}/edit/${id}`,
+                                    query: socketQuery,
+                                })}
+                                className="cursor-pointer ml-auto w-4 h-4 text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition"
+                            />
+                        </ActionTooltip>
+                    </>
+                )}
+            </div>       
         </div>
     )
 }

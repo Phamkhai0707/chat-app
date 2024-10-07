@@ -13,7 +13,6 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog" 
 
 import {
@@ -21,14 +20,14 @@ import {
     FormControl,
     FormField,
     FormItem,
-    FormLabel,
-    FormMessage
 } from "@/components/ui/form"
 
 import { Button } from "@/components/ui/button";
-import { FileUpload } from "@/components/file-upload";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
+import { FileMessageUpload } from "@/components/file-message-upload";
 
 const formSchema = z.object({
     fileUrl: z.string().min(1, {
@@ -39,6 +38,7 @@ const formSchema = z.object({
 export const MessageFileModal = () => {
     const { isOpen, onClose, type, data } = useModal();
     const router = useRouter();
+    const { t } = useTranslation();
 
     const isModalOpen = isOpen && type === "messageFile";
     const { apiUrl, query } = data;
@@ -82,10 +82,10 @@ export const MessageFileModal = () => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Add an attachment
+                        {t("messageAttachment")}
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500">
-                        send a file as a message
+                        {t("messageAttachmentDescription")}
                     </DialogDescription>
                 </DialogHeader>
                 <Form {...form}>
@@ -98,7 +98,7 @@ export const MessageFileModal = () => {
                                     render={({ field }) => (
                                         <FormItem>
                                             <FormControl>
-                                                <FileUpload
+                                                <FileMessageUpload
                                                     endpoint="messageFile"
                                                     value={field.value}
                                                     onChange={field.onChange}
@@ -112,7 +112,7 @@ export const MessageFileModal = () => {
                         </div>
                         <DialogFooter className="bg-gray-100 px-6 py-4">
                             <Button variant="primary" disabled={isLoading}>
-                                Send
+                                {t("messageAttachmentButton")}
                             </Button>
                         </DialogFooter>
                     </form>

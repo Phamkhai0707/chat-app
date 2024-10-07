@@ -1,0 +1,133 @@
+{
+    "createChannel": "Create Channel",
+    "channelName": "Channel name",
+    "channelType": "Channel type",
+    "createChannelButton": "Create",
+
+    "createServer": "Customize your server",
+    "createServerModalContent": "Give your server a personality with a name and an image. You can always change it later",
+    "serverName": "Server name",
+    "createServerNamePlaceHolder": "Enter server name",
+    "createServerButton": "Create",
+
+    "deleteChannel": "Delete Channel",
+    "deleteChannelModalContent": "Are you sure you want to do this?",
+    "deleteChannelModalWarning": " will be permanently deleted.",
+    "deleteChannelCancelButton": "Cancel",
+    "deleteChannelConfirmButton": "Confirm",
+
+    "deleteMessage": "Delete Message",
+    "deleteMessageModalContent": "Are you sure you want to do this?",
+    "deleteMessageModalWarning": "The message will be permanently deleted.",
+    "deleteMessageCancelButton": "Cancel",
+    "deleteMessageConfirmButton": "Confirm",
+
+    "deleteServer": "Delete Server",
+    "deleteServerModalContent": "Are you sure you want to do this?",
+    "deleteServerModalWarning": " will be permanently deleted.",
+    "deleteServerCancelButton": "Cancel",
+    "deleteServerConfirmButton": "Confirm",
+
+    "editServer": "Customize your server",
+    "editServerModalContent": "Give your server a personality with a name and an image. You can always change it later",
+    "editServerName": "Server name",
+    "editServerNamePlaceHolder": "Enter server name",
+    "editServerButton": "Save",
+
+    "editChannel": "Edit Channel",
+    "editChannelName": "Channel name",
+    "editChannelTopic": "Channel topic",
+    "editChannelType": "Channel type",
+    "editChannelButton": "Save",
+    "editChannelNamePlaceHolder": "Enter channel name",
+    "editChannelTopicPlaceHolder": "Let everyone know how to use this channel!",
+
+    "inviteTitle": "Invite Friends to ",
+    "serverInviteLink": "Server invite link",
+    "regenerateLink": "Generate a new link",
+    
+    "leaveServer": "Leave Server",
+    "leaveServerModalWarning": "Are you sure you want to leave ",
+    "leaveServerCancelButton": "Cancel",
+    "leaveServerConfirmButton": "Confirm",
+
+    "manageMembers": "Manage Members",
+    "amoutMembers": " Members",
+    "role": "Role",
+    "kick": "Kick",
+    "guest": "Guest",
+    "moderator": "Moderator",
+
+    "messageAttachment": "Add an attachment",
+    "messageAttachmentDescription": "Send a file as a message",
+    "messageAttachmentButton": "Send",
+
+    "chatInput": "Message",
+
+    "loadingMessages": "Loading messages",
+    "loadingError": "Something went wrong",
+    "loadPreviousMessages": "Load previous messages",
+
+    "edittedMessage": "(editted)",
+    "edittedMessagePlaceHolder": "Edit message",
+    "editMessageCancelGuide": "Press escape to ",
+    "editMessageSaveGuide": ", enter to ",
+    "editMessageCancel": "cancel",
+    "editMessageSave": "save",
+    "deletedMessage": "This message has been deleted.",
+    "editMessageSwitch": "Edit",
+    "deleteMessageSwitch": "Delete",
+    "pinMessageOn": "Pin",
+    "pinMessageOff": "Unpin",
+
+    "chatWelcome": "Welcome to ",
+    "channelWelcomePart1": "This is the start of the #",
+    "channelWelcomePart2": " channel.",
+    "conversationWelcome": "This is the start of your conversation with ",
+
+    "addServer": "Add a server",
+
+    "openModalEditChannel": "Edit",
+    "openModalDeleteChannel": "Delete",
+
+    "invitePeopleLabel": "Invite People",
+    "serverSettingLabel": "Server Setting",
+    "manageMembersLabel": "Manage Members",
+    "createChannelLabel": "Create Channel",
+    "deleteServerLabel": "Delete Server",
+    "leaveServerLabel": "Leave Server",
+
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+
+    "vietnamese": "Vietnamese",
+    "english": "English",
+
+    "loading": "Loading",
+
+    "online": "ONLINE",
+    "offline": "OFFLINE",
+
+    "search": "Search",
+    "notFound": "No Results found",
+    "commadInputSearchPlaceHolder": "Search all channels and members",
+    "searchTextChannelsLabel": "Text Channels",
+    "searchAudioChannelsLabel": "Voice Channels",
+    "searchVideoChannelsLabel": "Video Channels",
+    "searchMembersLabel": "Members",
+
+    "startVideoButton": "Start Video Call",
+    "endVideoButton": "End Video Call",
+
+    "pinMessage": "Pin Message",
+    "pinMessageQuestion": "Are you sure you want to pin this message for everyone?",
+    "unpinMessage": "Unpin Message",
+    "unpinMessageQuestion": "Are you sure you want to unpin this message?",
+    "pinMessageCancelButton": "Cancel",
+    "pinMessageConfirmButton": "Confirm",
+    "pinMessageNotice": "This message is pinned!",
+    "pinnedMessagesLabel": "Pin Messages",
+    "emptyPinnedMessageNoticePart1": "This channel don't have any", 
+    "emptyPinnedMessageNoticePart2": "pinned message... yet :(("
+}

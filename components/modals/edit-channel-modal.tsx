@@ -27,20 +27,28 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-modal-store";
-import { formSchemaCreateChannel } from "@/lib/validations/modal";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue
-} from "@/components/ui/select"
-import { ChannelType } from "@prisma/client";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
+import { Textarea } from "@/components/ui/textarea";
+import { EmojiPicker } from "../emoji-picker";
+
+const formSchemaCreateChannel = z.object({
+    name: z.string().min(1, {
+        message: "Channel name is required."
+    }).refine(
+        name => name !== "general",
+        {
+            message: "Channel name cannot be 'general'"
+        }
+    ),
+    topic: z.string().min(0),
+})
 
 export const EditChannelModal = () => {
     const { isOpen, onClose, type, data } = useModal();
     const router = useRouter();
+    const { t } = useTranslation();
 
     const isModalOpen = isOpen && type === "editChannel";
     const { channel, server } = data;
@@ -49,14 +57,15 @@ export const EditChannelModal = () => {
         resolver: zodResolver(formSchemaCreateChannel),
         defaultValues: {
             name: "",
-            type: channel?.type || ChannelType.TEXT,
+            topic: "",
         }
     })
 
     useEffect(() => {
         if(channel) {
+            form.reset();
             form.setValue("name", channel.name);
-            form.setValue("type", channel.type);
+            form.setValue("topic", channel.topic);
         }
     }, [form, channel]);
 
@@ -80,17 +89,20 @@ export const EditChannelModal = () => {
         }
     }
 
-    const handleClose = () => {
-        form.reset();
+    const handleClose = useCallback(() => {
         onClose();
-    }
+        form.reset({
+            name: channel?.name,
+            topic: channel?.topic
+        })
+    }, [channel?.name, channel?.topic, form, onClose]);
 
     return (
         <Dialog open={isModalOpen} onOpenChange={handleClose}>
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Edit Channel
+                        {t("editChannel")}
                     </DialogTitle>
                 </DialogHeader>
                 <Form {...form}>
@@ -101,12 +113,12 @@ export const EditChannelModal = () => {
                                 name="name"
                                 render={({field}) => (
                                     <FormItem>
-                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">Channel name</FormLabel>
+                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">{t("editChannelName")}</FormLabel>
                                         <FormControl>
                                             <Input
                                                 disabled={isLoading}
                                                 className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
-                                                placeholder="Enter channel name"
+                                                placeholder={t("editChannelNamePlaceHolder")}
                                                 {...field}
                                             />
                                         </FormControl>
@@ -114,43 +126,31 @@ export const EditChannelModal = () => {
                                     </FormItem>
                                 )}
                             />
-                            <FormField 
+
+                            {channel?.type === "TEXT" && (
+                                <FormField 
                                 control={form.control}
-                                name="type"
-                                render={({ field }) => (
+                                name="topic"
+                                render={({field}) => (
                                     <FormItem>
-                                        <FormLabel>Channel Type</FormLabel>
-                                        <Select
-                                            disabled={isLoading}
-                                            onValueChange={field.onChange}
-                                            defaultValue={field.value}
-                                        >
-                                            <FormControl>
-                                                <SelectTrigger
-                                                    className="bg-zinc-300/50 border-0 focus:ring-0 text-black ring-offset-0 focus:ring-offset-0 capitalize outline-none"
-                                                >
-                                                    <SelectValue placeholder="Select a channel type"/>
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent>
-                                                {Object.values(ChannelType).map((type) => (
-                                                    <SelectItem
-                                                        key={type}
-                                                        value={type}
-                                                        className="capitalize"
-                                                    >
-                                                        {type.toLowerCase()}
-                                                    </SelectItem>
-                                                ))}
-                                            </SelectContent>
-                                        </Select>
+                                        <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">{t("editChannelTopic")}</FormLabel>
+                                        <FormControl>
+                                            <Textarea
+                                                disabled={isLoading}
+                                                className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
+                                                placeholder={t("editChannelTopicPlaceHolder")}
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage/>
                                     </FormItem>
                                 )}
                             />
+                            )}
                         </div>
                         <DialogFooter className="bg-gray-100 px-6 py-4">
                             <Button variant="primary" disabled={isLoading}>
-                                Save
+                                {t("editChannelButton")}
                             </Button>
                         </DialogFooter>
                     </form>

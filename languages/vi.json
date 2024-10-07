@@ -1,0 +1,133 @@
+{
+    "createChannel": "Tạo kênh",
+    "channelName": "Tên kênh",
+    "channelType": "Loại kênh",
+    "createChannelButton": "Tạo kênh",
+
+    "createServer": "Tạo máy chủ của bạn",
+    "createServerModalContent": "Đặt tên và ảnh nền cho máy chủ của bạn, bạn hoàn toàn có thể chỉnh sửa lại sau đó",
+    "serverName": "Tên máy chủ",
+    "createServerNamePlaceHolder": "Nhập tên máy chủ",
+    "createServerButton": "Tạo máy chủ",
+
+    "deleteChannel": "Xóa kênh",
+    "deleteChannelModalContent": "Bạn có chắc chắn muốn xóa kênh này?",
+    "deleteChannelModalWarning": " sẽ bị xóa vĩnh viễn.",
+    "deleteChannelCancelButton": "Hủy",
+    "deleteChannelConfirmButton": "Xác nhận",
+
+    "deleteMessage": "Xóa tin nhắn",
+    "deleteMessageModalContent": "Bạn có chắc chắn muốn xóa tin nhắn này?",
+    "deleteMessageModalWarning": "Tin nhắn sẽ bị xóa vĩnh viễn.",
+    "deleteMessageCancelButton": "Hủy",
+    "deleteMessageConfirmButton": "Xác nhận",
+
+    "deleteServer": "Xóa máy chủ",
+    "deleteServerModalContent": "Bạn có chắc chắn muốn xóa máy chủ này?",
+    "deleteServerModalWarning": " sẽ bị xóa vĩnh viễn.",
+    "deleteServerCancelButton": "Hủy",
+    "deleteServerConfirmButton": "Xác nhận",
+
+    "editServer": "Chỉnh sửa máy chủ của bạn",
+    "editServerModalContent": "Đặt tên và ảnh nền cho máy chủ của bạn, bạn hoàn toàn có thể chỉnh sửa lại sau đó",
+    "editServerName": "Tên máy chủ",
+    "editServerNamePlaceHolder": "Nhập tên máy chủ",
+    "editServerButton": "Lưu",
+
+    "editChannel": "Chỉnh sửa kênh",
+    "editChannelName": "Tên kênh",
+    "editChannelTopic": "Chủ đề kênh",
+    "editChannelType": "Loại kênh",
+    "editChannelButton": "Lưu",
+    "editChannelNamePlaceHolder": "Nhập tên kênh",
+    "editChannelTopicPlaceHolder": "Hãy cho mọi người biết cách sử dụng kênh này!",
+
+    "inviteTitle": "Mời bạn bè vào ",
+    "serverInviteLink": "Link mời",
+    "regenerateLink": "Tạo đường liên kết mới",
+
+    "leaveServer": "Rời khỏi máy chủ",
+    "leaveServerModalWarning": "Bạn có chắc chắn muốn rời khỏi ",
+    "leaveServerCancelButton": "Hủy",
+    "leaveServerConfirmButton": "Xác nhận",
+
+    "manageMembers": "Quản lý thành viên",
+    "amoutMembers": " Thành viên",
+    "role": "Vai trò",
+    "kick": "Loại bỏ",
+    "guest": "Khách",
+    "moderator": "Quản lý",
+
+    "messageAttachment": "Thêm một tệp đính kèm",
+    "messageAttachmentDescription": "Gửi một tệp qua tin nhắn",
+    "messageAttachmentButton": "Gửi",
+
+    "chatInput": "Nhắn",
+
+    "loadingMessages": "Đang tải tin nhắn",
+    "loadingError": "Có gì đó sai sai",
+    "loadPreviousMessages": "Tải tin nhắn cũ",
+
+    "edittedMessage": "(đã chỉnh sửa)",
+    "edittedMessagePlaceHolder": "Chỉnh sửa tin nhắn",
+    "editMessageCancelGuide": "Nhấn escape để ",
+    "editMessageSaveGuide": ", nhấn enter để ",
+    "editMessageCancel": "hủy",
+    "editMessageSave": "lưu",
+    "deletedMessage": "Tin nhắn này đã được xóa.",
+    "editMessageSwitch": "Chỉnh sửa",
+    "deleteMessageSwitch": "Xóa",
+    "pinMessageOn": "Ghim",
+    "pinMessageOff": "Bỏ Ghim",
+    
+    "chatWelcome": "Chào mừng đến với ",
+    "channelWelcomePart1": "Đây là sự khởi đầu của kênh #",
+    "channelWelcomePart2": ".",
+    "conversationWelcome": "Đây là sự khởi đầu trong lịch sử các tin nhắn của bạn với ",
+
+    "addServer": "Thêm máy chủ",
+
+    "openModalEditChannel": "Chỉnh sửa",
+    "openModalDeleteChannel": "Xóa",
+
+    "invitePeopleLabel": "Mời mọi người",
+    "serverSettingLabel": "Cài đặt máy chủ",
+    "manageMembersLabel": "Quản lý thành viên",
+    "createChannelLabel": "Tạo kênh",
+    "deleteServerLabel": "Xóa máy chủ",
+    "leaveServerLabel": "Rời máy chủ",
+
+    "light": "Sáng",
+    "dark": "Tối",
+    "system": "Hệ thống",
+
+    "vietnamese": "Tiếng Việt",
+    "english": "Tiếng Anh",
+
+    "loading": "Đang tải",
+
+    "online": "TRỰC TUYẾN",
+    "offline": "NGOẠI TUYẾN",
+
+    "search": "Tìm kiếm",
+    "notFound": "Không tìm thấy kết quả",
+    "commadInputSearchPlaceHolder": "Tìm kiếm tất cả các kênh và thành viên",
+    "searchTextChannelsLabel": "Kênh văn bản",
+    "searchAudioChannelsLabel": "Kênh giọng nói",
+    "searchVideoChannelsLabel": "Kênh hình ảnh",
+    "searchMembersLabel": "Thành viên",
+
+    "startVideoButton": "Bắt đầu gọi video",
+    "endVideoButton": "Kết thúc gọi video",
+
+    "pinMessage": "Ghim tin nhắn",
+    "pinMessageQuestion": "Bạn có chắc chắn rằng muốn ghim tin nhắn này cho mọi người không?",
+    "unpinMessage": "Gỡ ghim tin nhắn",
+    "unpinMessageQuestion": "bạn có chắc chắn muốn bỏ ghim tin nhắn này không?",
+    "pinMessageCancelButton": "Hủy",
+    "pinMessageConfirmButton": "Xác nhận",
+    "pinMessageNotice": "Tin nhắn này đã được ghim!",
+    "pinnedMessagesLabel": "Những tin nhắn đã ghim",
+    "emptyPinnedMessageNoticePart1": "Kênh này không có bất kì", 
+    "emptyPinnedMessageNoticePart2": "tin nhắn nào được ghim :(("
+}

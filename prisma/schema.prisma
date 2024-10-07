@@ -85,6 +85,7 @@ enum ChannelType {
 model Channel {
   id String @id @default(uuid())
   name String
+  topic String
   type ChannelType @default(TEXT)
 
   profileId String
@@ -114,7 +115,9 @@ model Message {
   channelId String
   channel Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
 
+  pinned Boolean @default(false)
   deleted Boolean @default(false)
+  edited Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

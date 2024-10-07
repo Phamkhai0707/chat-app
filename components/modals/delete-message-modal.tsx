@@ -15,9 +15,12 @@ import {
 
 import { useModal } from "@/hooks/use-modal-store";
 import { Button } from "@/components/ui/button";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 export const DeleteMessageModal = () => {
     const { isOpen, onClose, type, data } = useModal();
+    const { t } = useTranslation();
 
     const isModalOpen = isOpen && type === "deleteMessage";
     const { apiUrl, query } = data;
@@ -47,11 +50,11 @@ export const DeleteMessageModal = () => {
             <DialogContent className="bg-white text-black p-0 overflow-hidden">
                 <DialogHeader className="pt-8 px-6">
                     <DialogTitle className="text-2xl text-center font-bold">
-                        Delete Message
+                        {t("deleteMessage")}
                     </DialogTitle>
                     <DialogDescription className="text-center text-zinc-500">
-                        Are you sure you want to do this? <br/>
-                        The message will be permanently deleted.
+                        {t("deleteMessageModalContent")}<br/>
+                        {t("deleteMessageModalWarning")}
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="bg-gray-100 px-6 py-4">
@@ -61,14 +64,14 @@ export const DeleteMessageModal = () => {
                             onClick={onClose}
                             variant="ghost"
                         >
-                            Cancel
+                            {t("deleteMessageCancelButton")}
                         </Button>
                         <Button
                             disabled={isLoading}
                             onClick={onClick}
                             variant="primary"
                         >
-                            Confirm
+                            {t("deleteMessageConfirmButton")}
                         </Button>
                     </div>
                 </DialogFooter>

@@ -62,7 +62,7 @@ export async function PATCH(
 ) {
     try {
         const profile = await currentProfile();
-        const { name, type } = await req.json();
+        const { name, topic } = await req.json();
         const { searchParams } = new URL(req.url)
 
         const serverId = searchParams.get("serverId");
@@ -106,7 +106,7 @@ export async function PATCH(
                         },
                         data: {
                             name,
-                            type,
+                            topic,
                         }
                     }
                 }

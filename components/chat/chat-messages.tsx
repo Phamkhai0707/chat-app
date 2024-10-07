@@ -9,6 +9,8 @@ import { useChatSocket } from "@/hooks/use-chat-socket";
 import { Loader2, ServerCrash } from "lucide-react";
 import { ChatItem } from "./chat-item";
 import { useChatScroll } from "@/hooks/use-chat-scroll";
+import "@/languages/i18n"
+import { useTranslation } from "react-i18next";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -20,6 +22,7 @@ type MessageWithMemberWithProfile = Message & {
 
 interface ChatMessagesProps {
     name: string;
+    topic: string;
     member: Member;
     chatId: string;
     apiUrl: string;
@@ -32,6 +35,7 @@ interface ChatMessagesProps {
 
 export const ChatMessages = ({
     name,
+    topic,
     member,
     chatId,
     apiUrl,
@@ -44,6 +48,7 @@ export const ChatMessages = ({
     const queryKey = `chat:${chatId}`;
     const addKey = `chat:${chatId}:messages`;
     const updateKey = `chat:${chatId}:messages:update`;
+    const { t } = useTranslation();
 
     const chatRef = useRef<ElementRef<"div">>(null);
     const bottomRef = useRef<ElementRef<"div">>(null);
@@ -74,7 +79,7 @@ export const ChatMessages = ({
             <div className="flex flex-col flex-1 justify-center items-center">
                 <Loader2 className="h-7 w-7 text-zinc-500 animate-spin my-4"/>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                    Loading messages...
+                    {t("loadingMessages")}...
                 </p>
             </div>
         )
@@ -85,7 +90,7 @@ export const ChatMessages = ({
             <div className="flex flex-col flex-1 justify-center items-center">
                 <ServerCrash className="h-7 w-7 text-zinc-500 my-4"/>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                    Something went wrong!
+                    {t("loadingError")}!
                 </p>
             </div>
         )
@@ -101,6 +106,7 @@ export const ChatMessages = ({
                 <ChatWelcome
                     type={type}
                     name={name}
+                    topic={topic}
                 />
             )}
             {hasNextPage && (
@@ -112,11 +118,12 @@ export const ChatMessages = ({
                             onClick={() => fetchNextPage()}
                             className="text-zinc-500 hover:text-zinc-400 text-xs my-4 dark:hover:text-zinc-300 transition"
                         >
-                            Load previous messages
+                            {t("loadPreviousMessages")}
                         </button>
                     )}
                 </div>
             )}
+
             <div className="flex flex-col-reverse mt-auto">
                 {data?.pages?.map((group, i) => (
                     <Fragment key={i}>
@@ -129,8 +136,9 @@ export const ChatMessages = ({
                                 content={message.content}
                                 fileUrl={message.fileUrl}
                                 deleted={message.deleted}
+                                pinned={message.pinned}
                                 timestamp={format(new Date(message.createdAt), DATE_FORMAT)}
-                                isUpdated={message.updatedAt !== message.createdAt}
+                                isUpdated={message.edited}
                                 socketUrl={socketUrl}
                                 socketQuery={socketQuery}
                             />
@@ -138,6 +146,7 @@ export const ChatMessages = ({
                     </Fragment>
                 ))}
             </div>
+            
             <div ref={bottomRef}/>
         </div>
     )

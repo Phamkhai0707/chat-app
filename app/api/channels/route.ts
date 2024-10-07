@@ -8,7 +8,7 @@ export async function POST(
 ) {
     try {
         const profile = await currentProfile();
-        const { name, type } = await req.json();
+        const { name, type, topic } = await req.json();
         const { searchParams } = new URL(req.url);
 
         const serverId = searchParams.get("serverId");
@@ -43,6 +43,7 @@ export async function POST(
                         profileId: profile.id,
                         name,
                         type,
+                        topic,
                     }
                 }
             }
