@@ -161,8 +161,8 @@ export const ChatItem = ({
                         </span>
                         {canUnpinMessage && (
                             <div className="flex flex-row gap-x-2 ml-2">
-                                <Pin className="text-white fill-white stroke-white rotate-45"/>
-                                <span className="text-white font-semibold">
+                                <Pin className="fill-black dark:fill-white dark:stroke-white rotate-45"/>
+                                <span className="font-semibold dark:text-white">
                                     {t("pinMessageNotice")}
                                 </span>
                             </div>
