@@ -119,7 +119,7 @@ export const ChatPinned = ({
                     </Fragment>
                 )) : (
                     <div className="flex flex-col items-center justify-center gap-y-3 pt-5 pb-8 px-12">
-                        <Image src={require("@/public/assets/unpin.png")} alt="logo" width={100} height={100}/>
+                        {/* <Image src={require("@/public/assets/unpin.png")} alt="logo" width={100} height={100}/> */}
                         <p className="text-center">
                             {t("emptyPinnedMessageNoticePart1")}<br/>{t("emptyPinnedMessageNoticePart2")}
                         </p>
