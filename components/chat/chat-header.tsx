@@ -4,12 +4,13 @@ import { UserAvatar } from "@/components/user-avatar";
 import { SocketIndicator } from "@/components/socket-indicator";
 import { ChatVideoButton } from "./chat-video-button";
 import { ChatPinned } from "./chat-pinned";
-import { Member, Message, Profile } from "@prisma/client";
+import { ChannelType, Member, Message, Profile } from "@prisma/client";
 
 interface ChatHeaderProps {
     serverId: string;
     name: string;
     topic: string;
+    channelType: ChannelType;
     type: "channel" | "conversation";
     imageUrl?: string;
     member: Member;
@@ -24,6 +25,7 @@ interface ChatHeaderProps {
 export const ChatHeader = ({
     serverId,
     topic,
+    channelType,
     name,
     imageUrl,
     member,
@@ -71,7 +73,8 @@ export const ChatHeader = ({
                 {type === "conversation" && (
                     <ChatVideoButton />
                 )}
-                <ChatPinned 
+                {channelType === "TEXT" && (
+                    <ChatPinned 
                     member={member}
                     chatId={chatId}
                     apiUrl={apiUrl}
@@ -80,6 +83,7 @@ export const ChatHeader = ({
                     paramKey={paramKey}
                     paramValue={paramValue}
                 />
+                )}
                 <SocketIndicator/>
             </div>
         </div>
